@@ -49,7 +49,7 @@ router.post("/", async(req, res) => {
   });
  
   //edit a note------->
-    router.put('/:id', async (req, res) => {
+    router.put('/edit/:id', async (req, res) => {
     try {
       await Notes.findOneAndUpdate(
         { _id: req.params.id },
@@ -83,4 +83,23 @@ router.post("/", async(req, res) => {
       return res.status(500).send(err.message);
     }
   });
+
+  //patch a note by isPinned true or false
+  router.patch('/pin/:id', async (req, res) => {
+    try {
+      await Notes.findOneAndUpdate(
+        { _id: req.params.id },
+        {isPinned: req.body.isPinned, },
+      ).then((notes) => {
+        if(!notes){
+            return res.status(404).send();
+        }
+        return res.status(200).send(notes);
+      })
+     return res.status(200).send(updated_note);
+    } catch (err) {
+      console.log(err);
+      return res.status(500).send(err.message);
+    }
+  })
 module.exports = router;
