@@ -1,6 +1,8 @@
-.header-subtext{
-    text-align: center;
+.cards-container{
+    width: 75%;
     margin: auto;
-    border: 1px solid red;
-    color: red;
+    gap: 1rem;
+}
+.cards-col{
+    width: 30%;
 }
