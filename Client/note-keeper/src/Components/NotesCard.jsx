@@ -5,15 +5,21 @@ import {
   DeleteOutlined,
   PushpinTwoTone,
 } from "@ant-design/icons";
-import { Row, Col, Typography, Card, Popconfirm, Spin, Tooltip} from "antd";
+import { Row, Col, Typography, Card, Popconfirm, Spin, Tooltip } from "antd";
 import { EditNotes } from "./EditNotes";
 
 const { Title, Text } = Typography;
-export const NotesCard = ({ pinnedNotes, otherNotes, handleDelete, handlePinNote, spinner }) => {
+export const NotesCard = ({
+  pinnedNotes,
+  otherNotes,
+  handleDelete,
+  handlePinNote,
+  spinner,
+}) => {
   const [isEditModalVisible, setIsEditModalVisible] = useState(false);
   const handleEditNote = () => {
     setIsEditModalVisible(true);
-  }
+  };
   return (
     <>
       {pinnedNotes?.length > 0 && (
@@ -30,11 +36,23 @@ export const NotesCard = ({ pinnedNotes, otherNotes, handleDelete, handlePinNote
                     hoverable
                     title={item?.title}
                     actions={[
-                      <EditOutlined key="edit" onClick={handleEditNote}/>,
-                      spinner?.id === item?._id && spinner?.status ? <Spin/> :
-                      item?.isPinned ? <Tooltip title='Click to unpin this note'><PushpinTwoTone onClick={() => handlePinNote(item?._id, 'false')} /></Tooltip>  :
-                      <Tooltip title='Click to pin this note'><PushpinOutlined key="pin" onClick={() => handlePinNote(item?._id, 'true')} /></Tooltip>
-                      ,
+                      <EditOutlined key="edit" onClick={handleEditNote} />,
+                      spinner?.id === item?._id && spinner?.status ? (
+                        <Spin />
+                      ) : item?.isPinned ? (
+                        <Tooltip title="Click to unpin this note">
+                          <PushpinTwoTone
+                            onClick={() => handlePinNote(item?._id, "false")}
+                          />
+                        </Tooltip>
+                      ) : (
+                        <Tooltip title="Click to pin this note">
+                          <PushpinOutlined
+                            key="pin"
+                            onClick={() => handlePinNote(item?._id, "true")}
+                          />
+                        </Tooltip>
+                      ),
                       <Popconfirm
                         title="Are you sure to delete this task?"
                         onConfirm={() => handleDelete(item?._id)}
@@ -82,9 +100,22 @@ export const NotesCard = ({ pinnedNotes, otherNotes, handleDelete, handlePinNote
                     title={item?.title}
                     actions={[
                       <EditOutlined key="edit" onClick={handleEditNote} />,
-                      spinner?.id === item?._id && spinner?.status ? <Spin/> :
-                      item?.isPinned ? <Tooltip title='Click to unpin this note'><PushpinTwoTone onClick={() => handlePinNote(item?._id, 'false')} /></Tooltip>  :
-                      <Tooltip title='Click to pin this note'><PushpinOutlined key="pin" onClick={() => handlePinNote(item?._id, 'true')} /></Tooltip>,
+                      spinner?.id === item?._id && spinner?.status ? (
+                        <Spin />
+                      ) : item?.isPinned ? (
+                        <Tooltip title="Click to unpin this note">
+                          <PushpinTwoTone
+                            onClick={() => handlePinNote(item?._id, "false")}
+                          />
+                        </Tooltip>
+                      ) : (
+                        <Tooltip title="Click to pin this note">
+                          <PushpinOutlined
+                            key="pin"
+                            onClick={() => handlePinNote(item?._id, "true")}
+                          />
+                        </Tooltip>
+                      ),
                       <Popconfirm
                         title="Are you sure to delete this task?"
                         onConfirm={() => handleDelete(item?._id)}
