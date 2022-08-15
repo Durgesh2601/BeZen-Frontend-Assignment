@@ -17,11 +17,20 @@ export const NotesCard = ({
   spinner,
 }) => {
   const [isEditModalVisible, setIsEditModalVisible] = useState(false);
-  const handleEditNote = () => {
+  const [selectedItem, setSelectedItem] = useState({});
+  const handleEditNote = (item) => {
     setIsEditModalVisible(true);
+    setSelectedItem(item);
   };
   return (
     <>
+      {selectedItem && (
+        <EditNotes
+          isEditModalVisible={isEditModalVisible}
+          setIsEditModalVisible={setIsEditModalVisible}
+          data={selectedItem}
+        />
+      )}
       {pinnedNotes?.length > 0 && (
         <>
           <Title className="title-category-notes" level={4}>
@@ -36,7 +45,10 @@ export const NotesCard = ({
                     hoverable
                     title={item?.title}
                     actions={[
-                      <EditOutlined key="edit" onClick={handleEditNote} />,
+                      <EditOutlined
+                        key="edit"
+                        onClick={() => handleEditNote(item)}
+                      />,
                       spinner?.id === item?._id && spinner?.status ? (
                         <Spin />
                       ) : item?.isPinned ? (
@@ -72,11 +84,6 @@ export const NotesCard = ({
                       <strong>Description</strong> : {item?.description}
                     </Text>
                   </Card>
-                  <EditNotes
-                    isEditModalVisible={isEditModalVisible}
-                    setIsEditModalVisible={setIsEditModalVisible}
-                    data={item?._id}
-                  />
                 </Col>
               );
             })}
@@ -99,7 +106,10 @@ export const NotesCard = ({
                     hoverable
                     title={item?.title}
                     actions={[
-                      <EditOutlined key="edit" onClick={handleEditNote} />,
+                      <EditOutlined
+                        key="edit"
+                        onClick={() => handleEditNote(item)}
+                      />,
                       spinner?.id === item?._id && spinner?.status ? (
                         <Spin />
                       ) : item?.isPinned ? (
@@ -135,11 +145,6 @@ export const NotesCard = ({
                       <strong>Description</strong> : {item?.description}
                     </Text>
                   </Card>
-                  <EditNotes
-                    isEditModalVisible={isEditModalVisible}
-                    setIsEditModalVisible={setIsEditModalVisible}
-                    data={item?._id}
-                  />
                 </Col>
               );
             })}

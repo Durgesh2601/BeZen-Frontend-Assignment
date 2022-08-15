@@ -1,25 +1,35 @@
-.cards-container{
-    width: 75%;
-    margin: auto;
-    gap: 1rem;
+.cards-container {
+  width: 75%;
+  margin: auto;
+  gap: 1rem;
 }
-.cards-col{
-    width: 30%;
+.cards-col {
+  width: 30%;
 }
-.add-notes-btn{
-    margin-left: 3rem;
+.add-notes-btn {
+  margin-left: 3rem;
 }
-.card-notes{
-    border: 1px solid lightgray;
-    border-radius: 0.5rem;
+.card-notes {
+  border: 1px solid lightgray;
+  border-radius: 0.5rem;
 }
-.title-category-notes{
-    margin-left: 12rem;
-    margin-top: 1rem;
+.title-category-notes {
+  margin-left: 12rem;
+  margin-top: 1rem;
 }
-.empty-state{
-    margin-top: 1rem;
+.empty-state {
+  margin-top: 1rem;
 }
-.pagination-row{
-    margin-top: 2rem;
+.pagination-row {
+  margin-top: 2rem;
+}
+.loading-state-row {
+  width: 75%;
+  margin: auto;
+}
+.empty-row-state {
+  margin-top: 5rem;
+}
+.pagination-row {
+  margin-top: 3rem;
 }

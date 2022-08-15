@@ -30,9 +30,11 @@ export const Pages = ({ page, setPage }) => {
   return (
     <Row align="center" className="pagination-row">
       {loading ? (
-        <Skeleton />
+        <Row className="loading-state-row">
+          <Skeleton />
+        </Row>
       ) : (
-        totalLength && (
+        totalLength > 0 && (
           <Pagination
             defaultCurrent={page}
             total={totalLength}

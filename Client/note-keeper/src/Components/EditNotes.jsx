@@ -6,6 +6,7 @@ import {
   Row,
   Button,
   Typography,
+  Checkbox,
   message,
 } from "antd";
 import axios from "axios";
@@ -16,40 +17,43 @@ const { Title } = Typography;
 export const EditNotes = ({
   isEditModalVisible,
   setIsEditModalVisible,
-  id,
+  data,
 }) => {
-  const [data, setData] = useState();
   const [loading, setLoading] = useState(false);
   const [form] = Form.useForm();
   useEffect(() => {
-    if (id) {
-      getNoteById(id);
+    if (data) {
+      defaultValues();
     }
-  }, [id]);
-  const getNoteById = (id) => {
-    setLoading(false);
+  }, [data]);
+  const defaultValues = () => {
+    const { title, tagline, description, isPinned } = data;
+    const values = { title, tagline, description, isPinned };
+    form.setFieldsValue(values);
+  };
+  const onFinish = (values) => {
+    setLoading(true);
+    const payload = { ...values, isPinned: data?.isPinned };
     axios
-      .get(`https://notes-keeper-v1.herokuapp.com/${id}`)
+      .put(`https://notes-keeper-v1.herokuapp.com/edit/${data?._id}`, payload)
       .then((res) => {
         if (res?.status === 200) {
-          setData(res?.data);
           setLoading(false);
+          setIsEditModalVisible(false);
+          message.success(`Note edited successfully`);
+          form.resetFields();
+          window.location.reload();
         }
       })
       .catch((err) => {
-        setLoading(false);
-        message.error(`Something went wrong`);
         console.log(err);
+        setLoading(false);
+        form.resetFields();
+        setIsEditModalVisible(false);
+        message.error(`Something went wrong`);
+        window.location.reload();
       });
   };
-  // const defaultValues = () => {
-  //     if(data){
-  //        const { title, tagline, description, isPinned } = data;
-  //        const values = {title, tagline, description, isPinned};
-  //        form.setFieldValue(values);
-  //     }
-  // }
-  const onFinish = (values) => {};
   return (
     <>
       {data && (
@@ -62,7 +66,12 @@ export const EditNotes = ({
           <Row>
             <Title level={4}>Edit you note...</Title>
           </Row>
-          <Form layout="vertical" onFinish={onFinish} form={form}>
+          <Form
+            layout="vertical"
+            onFinish={onFinish}
+            form={form}
+            initialValues={defaultValues}
+          >
             <Form.Item
               name="title"
               label="Title"
@@ -76,18 +85,11 @@ export const EditNotes = ({
             <Form.Item name="description" label="Description">
               <Input />
             </Form.Item>
-            <Form.Item
-              name="isPinned"
-              label="Pin this note"
-              valuePropName="checked"
-            >
-              <Switch />
-            </Form.Item>
             <Row align="center">
               <Button
                 htmlType="submit"
                 style={{ width: "70%" }}
-                //   loading={loading}
+                loading={loading}
               >
                 Save changes
               </Button>
