@@ -6,3 +6,20 @@
 .cards-col{
     width: 30%;
 }
+.add-notes-btn{
+    margin-left: 3rem;
+}
+.card-notes{
+    border: 1px solid lightgray;
+    border-radius: 0.5rem;
+}
+.title-category-notes{
+    margin-left: 12rem;
+    margin-top: 1rem;
+}
+.empty-state{
+    margin-top: 1rem;
+}
+.pagination-row{
+    margin-top: 2rem;
+}
