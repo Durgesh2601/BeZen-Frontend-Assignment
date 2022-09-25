@@ -1,4 +1,13 @@
-import { Form, Button, Switch, Input, Row, Modal, Typography } from "antd";
+import {
+  Form,
+  Button,
+  Switch,
+  Input,
+  Row,
+  Modal,
+  Typography,
+  message,
+} from "antd";
 
 const { Title } = Typography;
 export const AddNotes = ({
@@ -7,7 +16,32 @@ export const AddNotes = ({
   setIsAddModalVisible,
   loading,
   onFinish,
+  setImgUrl,
+  imgRef,
+  resetFileInput,
 }) => {
+  const handleFileChange = (e) => {
+    const image = e?.target.files[0];
+    if (image) {
+      const data = new FormData();
+      data.append("file", image);
+      data.append("upload_preset", "unsplash-mini-clone");
+      data.append("cloud_name", "Unsplash");
+      fetch("https://api.cloudinary.com/v1_1/Unsplash/image/upload", {
+        method: "POST",
+        body: data,
+      })
+        .then((res) => res.json())
+        .then((d) => {
+          setImgUrl(d.url);
+        })
+        .catch((err) => {
+          console.log(err);
+        });
+    } else {
+      alert("Please choose a file");
+    }
+  };
   return (
     <>
       <Modal
@@ -15,6 +49,10 @@ export const AddNotes = ({
         onCancel={() => setIsAddModalVisible(false)}
         visible={isAddModalVisible}
         footer={null}
+        afterClose={() => {
+          form.resetFields();
+          resetFileInput();
+        }}
       >
         <Row>
           <Title level={4}>Add you note here...</Title>
@@ -27,12 +65,26 @@ export const AddNotes = ({
           >
             <Input />
           </Form.Item>
+          <Form.Item
+            name="category"
+            label="Category"
+            rules={[{ required: true, message: "Please input category!" }]}
+          >
+            <Input />
+          </Form.Item>
           <Form.Item name="tagline" label="Tagline">
             <Input />
           </Form.Item>
-          <Form.Item name="description" label="Description">
-            <Input />
-          </Form.Item>
+          <p>Upload image</p>
+          <input
+            ref={imgRef}
+            type="file"
+            name="avatar"
+            required
+            accept="image/png, image/jpeg"
+            onChange={handleFileChange}
+          />
+          <br />
           <Form.Item
             name="isPinned"
             label="Pin this note"

@@ -1,14 +1,4 @@
-import {
-  Modal,
-  Form,
-  Input,
-  Switch,
-  Row,
-  Button,
-  Typography,
-  Checkbox,
-  message,
-} from "antd";
+import { Modal, Form, Input, Row, Button, Typography, message } from "antd";
 import axios from "axios";
 import { useState } from "react";
 import { useEffect } from "react";
@@ -27,8 +17,8 @@ export const EditNotes = ({
     }
   }, [data]);
   const defaultValues = () => {
-    const { title, tagline, description, isPinned } = data;
-    const values = { title, tagline, description, isPinned };
+    const { title, tagline, isPinned, category } = data;
+    const values = { title, tagline, isPinned, category };
     form.setFieldsValue(values);
   };
   const onFinish = (values) => {
@@ -79,10 +69,14 @@ export const EditNotes = ({
             >
               <Input />
             </Form.Item>
-            <Form.Item name="tagline" label="Tagline">
+            <Form.Item
+              name="category"
+              label="Category"
+              rules={[{ required: true, message: "Please input category!" }]}
+            >
               <Input />
             </Form.Item>
-            <Form.Item name="description" label="Description">
+            <Form.Item name="tagline" label="Tagline">
               <Input />
             </Form.Item>
             <Row align="center">

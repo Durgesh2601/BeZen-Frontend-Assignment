@@ -44,6 +44,14 @@ export const NotesCard = ({
                     className="card-notes"
                     hoverable
                     title={item?.title}
+                    cover={
+                      <img
+                        height={200}
+                        width={150}
+                        alt="alt_img"
+                        src={item?.img}
+                      />
+                    }
                     actions={[
                       <EditOutlined
                         key="edit"
@@ -77,12 +85,14 @@ export const NotesCard = ({
                   >
                     <Row>
                       <Text>
+                        <strong>Category</strong> : {item?.category}
+                      </Text>
+                    </Row>
+                    <Row>
+                      <Text>
                         <strong>Tagline</strong> : {item?.tagline}
                       </Text>
                     </Row>
-                    <Text>
-                      <strong>Description</strong> : {item?.description}
-                    </Text>
                   </Card>
                 </Col>
               );
@@ -105,6 +115,14 @@ export const NotesCard = ({
                     className="card-notes"
                     hoverable
                     title={item?.title}
+                    cover={
+                      <img
+                        height={200}
+                        width={150}
+                        alt="alt_img"
+                        src={item.img}
+                      />
+                    }
                     actions={[
                       <EditOutlined
                         key="edit"
@@ -138,12 +156,14 @@ export const NotesCard = ({
                   >
                     <Row>
                       <Text>
+                        <strong>Category</strong> : {item?.category}
+                      </Text>
+                    </Row>
+                    <Row>
+                      <Text>
                         <strong>Tagline</strong> : {item?.tagline}
                       </Text>
                     </Row>
-                    <Text>
-                      <strong>Description</strong> : {item?.description}
-                    </Text>
                   </Card>
                 </Col>
               );
